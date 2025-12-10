@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="GroceryStoreMaui.Pages.SalesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Bán hàng"
+    BackgroundColor="#F3F5F9">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Xóa giỏ" Priority="0" Order="Primary" Clicked="OnClearCartClicked" />
+        <ToolbarItem Text="Thanh toán" Priority="1" Order="Primary" Clicked="OnCheckoutClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+
+            <!-- TIÊU ĐỀ -->
+            <Label Text="Bán hàng"
+                   FontSize="28"
+                   FontAttributes="Bold" />
+
+            <!-- KHỐI TÌM KIẾM & KẾT QUẢ -->
+            <Frame Padding="12"
+                   HasShadow="True"
+                   CornerRadius="16"
+                   BackgroundColor="White">
+
+                <VerticalStackLayout Spacing="8">
+
+                    <Label Text="Tìm sản phẩm"
+                           FontAttributes="Bold"
+                           FontSize="16" />
+
+                    <SearchBar x:Name="ProductSearchBar"
+                               Placeholder="Nhập mã / tên sản phẩm..."
+                               SearchButtonPressed="OnSearchProduct"
+                               TextChanged="OnSearchTextChanged" />
+
+                    <Label Text="Kết quả"
+                           FontSize="13"
+                           TextColor="Gray" />
+
+                    <CollectionView x:Name="SearchResultCollection"
+                                    HeightRequest="150"
+                                    SelectionMode="Single"
+                                    SelectionChanged="OnProductSelected">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,4"
+                                       Padding="8"
+                                       CornerRadius="10"
+                                       BackgroundColor="#F7F8FC"
+                                       HasShadow="False">
+                                    <Grid ColumnDefinitions="2*,Auto">
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding Name}"
+                                                   FontAttributes="Bold" />
+                                            <Label Text="{Binding Code}"
+                                                   FontSize="11"
+                                                   TextColor="Gray" />
+                                            <Label Text="{Binding Category}"
+                                                   FontSize="11"
+                                                   TextColor="#555" />
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="1"
+                                               VerticalOptions="Center"
+                                               FontAttributes="Bold"
+                                               Text="{Binding SalePrice, StringFormat='{0:N0} đ'}" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                        <CollectionView.EmptyView>
+                            <Label Text="Nhập từ khóa để tìm sản phẩm..."
+                                   FontSize="12"
+                                   TextColor="Gray"
+                                   Margin="0,8,0,0" />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- KHỐI GIỎ HÀNG -->
+            <Frame Padding="12"
+                   HasShadow="True"
+                   CornerRadius="16"
+                   BackgroundColor="White">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Giỏ hàng"
+                           FontAttributes="Bold"
+                           FontSize="16" />
+
+                    <CollectionView x:Name="CartCollection"
+                                    HeightRequest="230">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,4"
+                                       Padding="8"
+                                       CornerRadius="10"
+                                       BackgroundColor="#F7F8FC"
+                                       HasShadow="False">
+                                    <Grid ColumnDefinitions="2*,Auto,Auto,Auto"
+                                          RowDefinitions="Auto,Auto">
+
+                                        <!-- Tên + mã -->
+                                        <Label Grid.Row="0" Grid.Column="0"
+                                               Text="{Binding Product.Name}"
+                                               FontAttributes="Bold" />
+                                        <Label Grid.Row="1" Grid.Column="0"
+                                               Text="{Binding Product.Code}"
+                                               FontSize="11"
+                                               TextColor="Gray" />
+
+                                        <!-- +/- SỐ LƯỢNG -->
+                                        <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                                                               Spacing="4"
+                                                               HorizontalOptions="Center"
+                                                               VerticalOptions="Center">
+                                            <Button Text="-"
+                                                    Padding="6,0"
+                                                    Clicked="OnDecreaseQuantityClicked"
+                                                    CommandParameter="{Binding .}" />
+                                            <Label Text="{Binding Quantity}"
+                                                   WidthRequest="30"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalTextAlignment="Center" />
+                                            <Button Text="+"
+                                                    Padding="6,0"
+                                                    Clicked="OnIncreaseQuantityClicked"
+                                                    CommandParameter="{Binding .}" />
+                                        </HorizontalStackLayout>
+
+                                        <!-- THÀNH TIỀN -->
+                                        <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                                               VerticalOptions="Center"
+                                               FontAttributes="Bold"
+                                               Text="{Binding LineTotal, StringFormat='{0:N0} đ'}" />
+
+                                        <!-- NÚT XÓA -->
+                                        <Button Grid.Row="0" Grid.Column="3" Grid.RowSpan="2"
+                                                Text="X"
+                                                BackgroundColor="Red"
+                                                TextColor="White"
+                                                Padding="6,0"
+                                                Clicked="OnRemoveItemClicked"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                        <CollectionView.EmptyView>
+                            <Label Text="Giỏ hàng trống. Hãy chọn sản phẩm ở trên để thêm vào."
+                                   FontSize="12"
+                                   TextColor="Gray"
+                                   Margin="0,8,0,0" />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- GIẢM GIÁ + TỔNG TIỀN -->
+            <Frame Padding="12"
+                   HasShadow="True"
+                   CornerRadius="16"
+                   BackgroundColor="White">
+                <VerticalStackLayout Spacing="6">
+
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Text="Giảm giá"
+                               VerticalOptions="Center" />
+                        <Entry x:Name="DiscountEntry"
+                               Grid.Column="1"
+                               Keyboard="Numeric"
+                               Text="0"
+                               HorizontalTextAlignment="End"
+                               TextChanged="DiscountEntry_TextChanged" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto" Margin="0,4,0,0">
+                        <Label Text="Tổng tiền"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center" />
+                        <Label x:Name="TotalLabel"
+                               Grid.Column="1"
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               VerticalOptions="Center"
+                               Text="0 đ" />
+                    </Grid>
+
+                    <Label Text="Bấm 'Thanh toán' ở góc trên bên phải để hoàn tất hóa đơn."
+                           FontSize="11"
+                           TextColor="Gray"
+                           Margin="0,4,0,0" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

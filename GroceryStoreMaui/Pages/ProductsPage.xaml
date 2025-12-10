@@ -1,0 +1,53 @@
+<ContentPage
+    x:Class="GroceryStoreMaui.Pages.ProductsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Sản phẩm">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Thêm" Clicked="OnAddClicked" />
+        <ToolbarItem Text="Tải lại" Clicked="OnRefreshClicked" />
+    </ContentPage.ToolbarItems>
+
+    <!-- Dùng Grid chia màn hình: trên là SearchBar, dưới là CollectionView -->
+    <Grid RowDefinitions="Auto,*" Padding="8">
+
+        <!-- Hàng 0: ô tìm kiếm -->
+        <SearchBar Grid.Row="0"
+                   x:Name="SearchBar"
+                   Placeholder="Tìm theo mã / tên / loại"
+                   SearchButtonPressed="OnSearch" />
+
+        <!-- Hàng 1: danh sách sản phẩm, chính nó sẽ scroll -->
+        <CollectionView Grid.Row="1"
+                        x:Name="ProductCollection"
+                        ItemsLayout="VerticalList"
+                        SelectionMode="Single"
+                        SelectionChanged="OnSelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="6" ColumnDefinitions="2*,Auto">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Name}"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding Code}"
+                                   FontSize="11"
+                                   TextColor="Gray" />
+                            <Label Text="{Binding Category}"
+                                   FontSize="11" />
+                            <Label Text="{Binding Quantity, StringFormat='Tồn: {0}'}"
+                                   FontSize="11"
+                                   TextColor="Gray" />
+                        </VerticalStackLayout>
+
+                        <Label Grid.Column="1"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               Text="{Binding SalePrice, StringFormat='{0:N0} đ'}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="GroceryStoreMaui.Pages.CashFlowPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Thu - chi">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Lọc" Clicked="OnFilterClicked" />
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout Padding="8" Spacing="8">
+
+        <Label Text="Lọc theo thời gian" FontAttributes="Bold" />
+
+        <Grid ColumnDefinitions="Auto,*,Auto,*" ColumnSpacing="4">
+            <Label Text="Từ" VerticalOptions="Center" />
+            <DatePicker x:Name="FromDatePicker" Grid.Column="1" />
+            <Label Text="Đến" VerticalOptions="Center" Grid.Column="2" />
+            <DatePicker x:Name="ToDatePicker" Grid.Column="3" />
+        </Grid>
+
+        <Grid ColumnDefinitions="*,*,*" Margin="0,8,0,0">
+            <VerticalStackLayout>
+                <Label Text="Tổng thu" FontAttributes="Bold" />
+                <Label x:Name="TotalInLabel" />
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Tổng chi" FontAttributes="Bold" />
+                <Label x:Name="TotalOutLabel" />
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Chênh lệch" FontAttributes="Bold" />
+                <Label x:Name="BalanceLabel" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <Label Text="Danh sách thu - chi"
+               FontAttributes="Bold"
+               Margin="0,8,0,0" />
+
+        <CollectionView x:Name="CashCollection" HeightRequest="350">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="4" ColumnDefinitions="Auto,Auto,*">
+                        <Label Text="{Binding Date, StringFormat='{0:dd/MM HH:mm}'}"
+                               FontSize="11" />
+                        <Label Grid.Column="1"
+                               Text="{Binding Type}"
+                               FontAttributes="Bold"
+                               Margin="8,0" />
+                        <VerticalStackLayout Grid.Column="2">
+                            <Label Text="{Binding Amount, StringFormat='{0:N0} đ'}" />
+                            <Label Text="{Binding Description}" FontSize="11" TextColor="Gray" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

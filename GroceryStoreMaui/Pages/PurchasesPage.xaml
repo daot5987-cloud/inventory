@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="GroceryStoreMaui.Pages.PurchasesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Nhập hàng">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Lưu phiếu" Clicked="OnSavePurchaseClicked" />
+        <ToolbarItem Text="Tải lại" Clicked="OnRefreshClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="8" Spacing="8">
+
+            <Label Text="Thông tin phiếu nhập"
+                   FontAttributes="Bold" />
+
+            <HorizontalStackLayout Spacing="8">
+                <Label Text="Nhà cung cấp:" VerticalOptions="Center" />
+                <Picker x:Name="SupplierPicker"
+                        Title="Chọn nhà cung cấp"
+                        WidthRequest="220"
+                        ItemDisplayBinding="{Binding Name}" />
+            </HorizontalStackLayout>
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Đã trả" />
+                <Entry x:Name="PaidAmountEntry"
+                       Grid.Column="1"
+                       WidthRequest="150"
+                       Keyboard="Numeric"
+                       TextChanged="PaidAmountEntry_TextChanged" />
+            </Grid>
+
+            <Label Text="Chọn hàng nhập" FontAttributes="Bold" />
+
+            <SearchBar x:Name="ProductSearchBar"
+                       Placeholder="Tìm sản phẩm"
+                       SearchButtonPressed="OnSearchProduct" />
+
+            <CollectionView x:Name="SearchResultCollection"
+                            HeightRequest="150"
+                            SelectionMode="Single"
+                            SelectionChanged="OnProductSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="4" ColumnDefinitions="2*,Auto">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" />
+                                <Label Text="{Binding Code}" FontSize="11" TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="1"
+                                   VerticalOptions="Center"
+                                   Text="{Binding ImportPrice, StringFormat='{0:N0} đ'}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Giỏ nhập hàng" FontAttributes="Bold" />
+
+            <CollectionView x:Name="CartCollection" HeightRequest="200">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="4" ColumnDefinitions="2*,Auto,Auto">
+                            <Label Text="{Binding Product.Name}" />
+                            <Label Grid.Column="1"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding Quantity}" />
+                            <Label Grid.Column="2"
+                                   Text="{Binding LineTotal, StringFormat='{0:N0} đ'}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Tổng tiền" FontAttributes="Bold" />
+                <Label x:Name="TotalLabel"
+                       Grid.Column="1"
+                       FontAttributes="Bold" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Công nợ phát sinh" />
+                <Label x:Name="DebtLabel" Grid.Column="1" />
+            </Grid>
+
+            <Label Text="Các phiếu nhập gần đây"
+                   FontAttributes="Bold"
+                   Margin="0,16,0,0" />
+
+            <CollectionView x:Name="PurchaseCollection" HeightRequest="200">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="4">
+                            <Label Text="{Binding Id, StringFormat='PN#{0}'}"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                   FontSize="12" />
+                            <Label Text="{Binding TotalAmount, StringFormat='Tổng: {0:N0} đ'}"
+                                   FontSize="12" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="GroceryStoreMaui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:GroceryStoreMaui.Pages">
+
+    <!-- Trang đăng nhập (không hiện trong flyout) -->
+    <ShellContent
+        Route="LoginPage"
+        ContentTemplate="{DataTemplate pages:LoginPage}"
+        FlyoutItemIsVisible="False" />
+
+    <FlyoutItem Title="Tổng quan" Route="Dashboard">
+        <ShellContent
+            Title="Dashboard"
+            ContentTemplate="{DataTemplate pages:DashboardPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Hàng hóa">
+        <ShellContent
+            Title="Sản phẩm"
+            ContentTemplate="{DataTemplate pages:ProductsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Khách hàng">
+        <ShellContent
+            Title="Khách hàng"
+            ContentTemplate="{DataTemplate pages:CustomersPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Nhà cung cấp">
+        <ShellContent
+            Title="Nhà cung cấp"
+            ContentTemplate="{DataTemplate pages:SuppliersPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Nhập hàng">
+        <ShellContent
+            Title="Phiếu nhập"
+            ContentTemplate="{DataTemplate pages:PurchasesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Bán hàng">
+        <ShellContent
+            Title="POS"
+            ContentTemplate="{DataTemplate pages:SalesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Thu chi">
+        <ShellContent
+            Title="Thu - Chi"
+            ContentTemplate="{DataTemplate pages:CashFlowPage}" />
+    </FlyoutItem>
+
+</Shell>

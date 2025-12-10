@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="GroceryStoreMaui.Pages.ProductEditPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Sản phẩm">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Lưu" Clicked="OnSaveClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="8">
+
+            <Entry x:Name="CodeEntry" Placeholder="Mã hàng" />
+            <Entry x:Name="NameEntry" Placeholder="Tên hàng" />
+            <Entry x:Name="CategoryEntry" Placeholder="Loại / nhóm" />
+            <Entry x:Name="UnitEntry" Placeholder="Đơn vị tính" Text="Cái" />
+
+            <Entry x:Name="ImportPriceEntry" Placeholder="Giá nhập" Keyboard="Numeric" />
+            <Entry x:Name="SalePriceEntry" Placeholder="Giá bán" Keyboard="Numeric" />
+            <Entry x:Name="QuantityEntry" Placeholder="Số lượng tồn" Keyboard="Numeric" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

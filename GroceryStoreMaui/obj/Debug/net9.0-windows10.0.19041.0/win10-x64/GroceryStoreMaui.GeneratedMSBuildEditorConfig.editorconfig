@@ -1,0 +1,106 @@
+is_global = true
+build_property.MvvmToolkitEnableINotifyPropertyChangingSupport = true
+build_property._MvvmToolkitIsUsingWindowsRuntimePack = true
+build_property.CsWinRTComponent = 
+build_property.CsWinRTAotOptimizerEnabled = true
+build_property.CsWinRTAotOptimizerEnabled = true
+build_property.CsWinRTAotWarningLevel = 
+build_property.CsWinRTAotWarningLevel = 
+build_property.TargetFramework = net9.0-windows10.0.19041.0
+build_property.TargetPlatformMinVersion = 10.0.19041.0
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 9A19103F-16F7-4668-BE54-9A1E7A4F7556
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = GroceryStoreMaui
+build_property.ProjectDir = D:\hello word\GroceryStoreMaui\GroceryStoreMaui\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTAotExportsEnabled = 
+build_property.CsWinRTRcwFactoryFallbackGeneratorForceOptIn = 
+build_property.CsWinRTRcwFactoryFallbackGeneratorForceOptOut = 
+build_property.CsWinRTCcwLookupTableGeneratorEnabled = true
+build_property.CsWinRTMergeReferencedActivationFactories = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/CashFlowPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.CashFlowPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\CashFlowPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\CashFlowPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/CustomersPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.CustomersPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\CustomersPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\CustomersPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/DashboardPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.DashboardPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\DashboardPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\DashboardPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\LoginPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/ProductEditPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.ProductEditPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\ProductEditPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\ProductEditPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/ProductsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.ProductsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\ProductsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\ProductsPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/PurchasesPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.PurchasesPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\PurchasesPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\PurchasesPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/SalesPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.SalesPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\SalesPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\SalesPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Pages/SuppliersPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Pages.SuppliersPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\SuppliersPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\SuppliersPage.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+
+[D:/hello word/GroceryStoreMaui/GroceryStoreMaui/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = GroceryStoreMaui.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="GroceryStoreMaui.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Dashboard">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Label Text="Tổng quan cửa hàng"
+                   FontSize="22"
+                   HorizontalOptions="Center" />
+
+            <HorizontalStackLayout Spacing="16">
+                <Frame Padding="8" HasShadow="True" WidthRequest="150">
+                    <VerticalStackLayout>
+                        <Label Text="Sản phẩm" FontAttributes="Bold" />
+                        <Label x:Name="TotalProductLabel" FontSize="18" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Padding="8" HasShadow="True" WidthRequest="150">
+                    <VerticalStackLayout>
+                        <Label Text="Khách hàng" FontAttributes="Bold" />
+                        <Label x:Name="TotalCustomerLabel" FontSize="18" />
+                    </VerticalStackLayout>
+                </Frame>
+            </HorizontalStackLayout>
+
+            <Label Text="Hàng sắp hết" FontAttributes="Bold" />
+
+            <CollectionView x:Name="LowStockCollection" HeightRequest="200">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="4">
+                            <Label Text="{Binding Name}" />
+                            <Label Text="{Binding Quantity, StringFormat='Tồn: {0}'}"
+                                   FontSize="12"
+                                   TextColor="Red" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

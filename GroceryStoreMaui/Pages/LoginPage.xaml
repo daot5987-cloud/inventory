@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="GroceryStoreMaui.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Đăng nhập">
+
+    <VerticalStackLayout
+        Padding="24"
+        Spacing="16"
+        VerticalOptions="Center">
+
+        <Label Text="Quản lý cửa hàng tạp hóa"
+               FontSize="24"
+               HorizontalOptions="Center" />
+
+        <Entry x:Name="UsernameEntry"
+               Placeholder="Tài khoản"
+               Keyboard="Text" />
+
+        <Entry x:Name="PasswordEntry"
+               Placeholder="Mật khẩu"
+               IsPassword="True" />
+
+        <Button Text="Đăng nhập"
+                Clicked="OnLoginClicked" />
+
+        <Label Text="Tài khoản mặc định: admin / 123456"
+               FontSize="12"
+               TextColor="Gray"
+               HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
