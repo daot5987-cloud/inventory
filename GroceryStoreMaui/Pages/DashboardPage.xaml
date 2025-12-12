@@ -1,47 +1,129 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="GroceryStoreMaui.Pages.DashboardPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Dashboard">
+    Title="Dashboard"
+    BackgroundColor="#F3F5F9">
 
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="16">
 
+            <!-- TIÊU ĐỀ TRANG -->
             <Label Text="Tổng quan cửa hàng"
-                   FontSize="22"
-                   HorizontalOptions="Center" />
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,8,0,0" />
 
-            <HorizontalStackLayout Spacing="16">
-                <Frame Padding="8" HasShadow="True" WidthRequest="150">
-                    <VerticalStackLayout>
-                        <Label Text="Sản phẩm" FontAttributes="Bold" />
-                        <Label x:Name="TotalProductLabel" FontSize="18" />
+            <!-- HÀNG 1: THỐNG KÊ NHANH -->
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="16">
+
+                <!-- CARD: SẢN PHẨM -->
+                <Frame Padding="16"
+                       CornerRadius="20"
+                       HasShadow="True"
+                       BackgroundColor="White">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Sản phẩm"
+                               FontSize="14"
+                               TextColor="#555" />
+                        <Label x:Name="ProductCountLabel"
+                               Text="0"
+                               FontSize="32"
+                               FontAttributes="Bold" />
+                        <Label Text="Tổng số mặt hàng đang quản lý"
+                               FontSize="11"
+                               TextColor="Gray" />
                     </VerticalStackLayout>
                 </Frame>
 
-                <Frame Padding="8" HasShadow="True" WidthRequest="150">
-                    <VerticalStackLayout>
-                        <Label Text="Khách hàng" FontAttributes="Bold" />
-                        <Label x:Name="TotalCustomerLabel" FontSize="18" />
+                <!-- CARD: KHÁCH HÀNG -->
+                <Frame Padding="16"
+                       CornerRadius="20"
+                       HasShadow="True"
+                       BackgroundColor="White"
+                       Grid.Column="1">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Khách hàng"
+                               FontSize="14"
+                               TextColor="#555" />
+                        <Label x:Name="CustomerCountLabel"
+                               Text="0"
+                               FontSize="32"
+                               FontAttributes="Bold" />
+                        <Label Text="Số khách hàng đã lưu trong hệ thống"
+                               FontSize="11"
+                               TextColor="Gray" />
                     </VerticalStackLayout>
                 </Frame>
-            </HorizontalStackLayout>
 
-            <Label Text="Hàng sắp hết" FontAttributes="Bold" />
+            </Grid>
 
-            <CollectionView x:Name="LowStockCollection" HeightRequest="200">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Padding="4">
-                            <Label Text="{Binding Name}" />
-                            <Label Text="{Binding Quantity, StringFormat='Tồn: {0}'}"
+            <!-- HÀNG 2: HÀNG SẮP HẾT -->
+            <Frame Padding="16"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   BackgroundColor="White">
+
+                <VerticalStackLayout Spacing="8">
+
+                    <HorizontalStackLayout
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        Spacing="8">
+                        <Label Text="Hàng sắp hết"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center" />
+                        <Label Text="(tồn kho thấp)"
+                               FontSize="12"
+                               TextColor="Gray"
+                               VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
+
+                    <!-- LIST HÀNG SẮP HẾT -->
+                    <CollectionView x:Name="LowStockCollection"
+                                    HeightRequest="260">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,4"
+                                       Padding="8"
+                                       CornerRadius="10"
+                                       BackgroundColor="#F7F8FC"
+                                       HasShadow="False">
+                                    <Grid ColumnDefinitions="*,Auto"
+                                          RowDefinitions="Auto,Auto">
+
+                                        <Label Grid.Row="0" Grid.Column="0"
+                                               Text="{Binding Name}"
+                                               FontAttributes="Bold" />
+                                        <Label Grid.Row="1" Grid.Column="0"
+                                               Text="{Binding Code}"
+                                               FontSize="11"
+                                               TextColor="Gray" />
+
+                                        <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                                               VerticalOptions="Center"
+                                               FontAttributes="Bold"
+                                               Text="{Binding Quantity, StringFormat='Tồn: {0}'}"
+                                               TextColor="#E53935" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                        <CollectionView.EmptyView>
+                            <Label Text="Hiện chưa có mặt hàng nào sắp hết."
                                    FontSize="12"
-                                   TextColor="Red" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                   TextColor="Gray"
+                                   Margin="0,8,0,0" />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </Frame>
 
         </VerticalStackLayout>
     </ScrollView>

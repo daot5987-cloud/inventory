@@ -3,60 +3,207 @@
     x:Class="GroceryStoreMaui.Pages.CashFlowPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Thu - chi">
+    xmlns:models="clr-namespace:GroceryStoreMaui.Models"
+    Title="Thu - chi"
+    BackgroundColor="#F3F5F9">
 
+    <!-- Nút Lọc trên thanh tiêu đề -->
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Lọc" Clicked="OnFilterClicked" />
     </ContentPage.ToolbarItems>
 
-    <VerticalStackLayout Padding="8" Spacing="8">
+    <ScrollView>
+        <!-- BỎ Label "Thu - chi" ở trong để không bị 2 tiêu đề -->
+        <VerticalStackLayout Padding="16" Spacing="16">
 
-        <Label Text="Lọc theo thời gian" FontAttributes="Bold" />
+            <!-- LỌC THỜI GIAN -->
+            <Frame Padding="12"
+                   CornerRadius="18"
+                   HasShadow="True"
+                   BackgroundColor="White">
+                <VerticalStackLayout Spacing="8">
 
-        <Grid ColumnDefinitions="Auto,*,Auto,*" ColumnSpacing="4">
-            <Label Text="Từ" VerticalOptions="Center" />
-            <DatePicker x:Name="FromDatePicker" Grid.Column="1" />
-            <Label Text="Đến" VerticalOptions="Center" Grid.Column="2" />
-            <DatePicker x:Name="ToDatePicker" Grid.Column="3" />
-        </Grid>
+                    <Label Text="Lọc theo thời gian"
+                           FontAttributes="Bold"
+                           FontSize="18" />
 
-        <Grid ColumnDefinitions="*,*,*" Margin="0,8,0,0">
-            <VerticalStackLayout>
-                <Label Text="Tổng thu" FontAttributes="Bold" />
-                <Label x:Name="TotalInLabel" />
-            </VerticalStackLayout>
-            <VerticalStackLayout>
-                <Label Text="Tổng chi" FontAttributes="Bold" />
-                <Label x:Name="TotalOutLabel" />
-            </VerticalStackLayout>
-            <VerticalStackLayout>
-                <Label Text="Chênh lệch" FontAttributes="Bold" />
-                <Label x:Name="BalanceLabel" />
-            </VerticalStackLayout>
-        </Grid>
+                    <Grid ColumnDefinitions="Auto,*,Auto,*"
+                          ColumnSpacing="8">
+                        <Label Text="Từ"
+                               VerticalOptions="Center" />
+                        <DatePicker x:Name="FromDatePicker"
+                                    Grid.Column="1" />
 
-        <Label Text="Danh sách thu - chi"
-               FontAttributes="Bold"
-               Margin="0,8,0,0" />
-
-        <CollectionView x:Name="CashCollection" HeightRequest="350">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="4" ColumnDefinitions="Auto,Auto,*">
-                        <Label Text="{Binding Date, StringFormat='{0:dd/MM HH:mm}'}"
-                               FontSize="11" />
-                        <Label Grid.Column="1"
-                               Text="{Binding Type}"
-                               FontAttributes="Bold"
-                               Margin="8,0" />
-                        <VerticalStackLayout Grid.Column="2">
-                            <Label Text="{Binding Amount, StringFormat='{0:N0} đ'}" />
-                            <Label Text="{Binding Description}" FontSize="11" TextColor="Gray" />
-                        </VerticalStackLayout>
+                        <Label Text="Đến"
+                               Grid.Column="2"
+                               VerticalOptions="Center" />
+                        <DatePicker x:Name="ToDatePicker"
+                                    Grid.Column="3" />
                     </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
-    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- TỔNG THU / CHI / CHÊNH LỆCH -->
+            <Frame Padding="12"
+                   CornerRadius="18"
+                   HasShadow="True"
+                   BackgroundColor="White">
+                <VerticalStackLayout Spacing="8">
+
+                    <Label Text="Tổng hợp"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+
+                        <!-- Tổng thu -->
+                        <Frame BackgroundColor="#E8F5E9"
+                               CornerRadius="16"
+                               Padding="8"
+                               HasShadow="False">
+                            <VerticalStackLayout>
+                                <Label Text="Tổng thu"
+                                       FontAttributes="Bold"
+                                       FontSize="14"
+                                       TextColor="#1B5E20" />
+                                <Label x:Name="TotalInLabel"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Text="0 đ"
+                                       TextColor="#1B5E20" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Tổng chi -->
+                        <Frame BackgroundColor="#FFEBEE"
+                               CornerRadius="16"
+                               Padding="8"
+                               HasShadow="False"
+                               Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="Tổng chi"
+                                       FontAttributes="Bold"
+                                       FontSize="14"
+                                       TextColor="#B71C1C" />
+                                <Label x:Name="TotalOutLabel"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Text="0 đ"
+                                       TextColor="#B71C1C" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Chênh lệch -->
+                        <Frame BackgroundColor="#E3F2FD"
+                               CornerRadius="16"
+                               Padding="8"
+                               HasShadow="False"
+                               Grid.Column="2">
+                            <VerticalStackLayout>
+                                <Label Text="Chênh lệch"
+                                       FontAttributes="Bold"
+                                       FontSize="14"
+                                       TextColor="#0D47A1" />
+                                <Label x:Name="BalanceLabel"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Text="0 đ"
+                                       TextColor="#0D47A1" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- DANH SÁCH THU - CHI -->
+            <Frame Padding="12"
+                   CornerRadius="18"
+                   HasShadow="True"
+                   BackgroundColor="White">
+                <VerticalStackLayout Spacing="8">
+
+                    <Label Text="Danh sách thu - chi"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+
+                    <!-- Dùng TapGesture, KHÔNG dùng SelectionChanged -->
+                    <CollectionView x:Name="CashCollection"
+                                    HeightRequest="400"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,4"
+                                       Padding="8"
+                                       CornerRadius="12"
+                                       BackgroundColor="#F7F8FC"
+                                       HasShadow="False">
+
+                                    <!-- Bắt sự kiện bấm vào cả dòng -->
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnCashItemTapped" />
+                                    </Frame.GestureRecognizers>
+
+                                    <Grid ColumnDefinitions="Auto,*,Auto"
+                                          RowDefinitions="Auto,Auto">
+
+                                        <!-- Ngày / giờ -->
+                                        <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                               Text="{Binding Date, StringFormat='{0:dd/MM HH:mm}'}"
+                                               FontSize="12"
+                                               TextColor="Gray"
+                                               VerticalOptions="Center" />
+
+                                        <!-- Type + mô tả -->
+                                        <VerticalStackLayout Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                                                             Margin="8,0,0,0">
+                                            <Label Text="{Binding Type}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="14" />
+                                            <Label Text="{Binding Description}"
+                                                   FontSize="12"
+                                                   TextColor="Gray" />
+                                        </VerticalStackLayout>
+
+                                        <!-- Số tiền -->
+                                        <Label x:Name="AmountLabel"
+                                               Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                                               Text="{Binding Amount, StringFormat='{0:N0} đ'}"
+                                               FontAttributes="Bold"
+                                               VerticalOptions="Center">
+                                            <Label.Triggers>
+                                                <!-- Màu xanh nếu In, đỏ nếu Out (enum CashType) -->
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding Type}"
+                                                             Value="{x:Static models:CashType.In}">
+                                                    <Setter Property="TextColor" Value="#1B5E20" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding Type}"
+                                                             Value="{x:Static models:CashType.Out}">
+                                                    <Setter Property="TextColor" Value="#B71C1C" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                        <CollectionView.EmptyView>
+                            <Label Text="Không có giao dịch nào trong khoảng thời gian này."
+                                   FontSize="12"
+                                   TextColor="Gray"
+                                   Margin="0,8,0,0" />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

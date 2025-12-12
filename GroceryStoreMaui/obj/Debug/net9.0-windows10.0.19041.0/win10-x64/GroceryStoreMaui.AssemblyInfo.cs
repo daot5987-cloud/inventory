@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GroceryStoreMaui")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d7880ae1664bd5aa81f78bc409b087e08dcfa62")]
 [assembly: System.Reflection.AssemblyProductAttribute("GroceryStoreMaui")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GroceryStoreMaui")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

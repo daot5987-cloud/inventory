@@ -1,33 +1,88 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="GroceryStoreMaui.Pages.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Đăng nhập">
+    Title="Đăng nhập"
+    BackgroundColor="#F3F5F9">
 
-    <VerticalStackLayout
-        Padding="24"
-        Spacing="16"
-        VerticalOptions="Center">
+    <ScrollView>
+        <Grid Padding="24">
 
-        <Label Text="Quản lý cửa hàng tạp hóa"
-               FontSize="24"
-               HorizontalOptions="Center" />
+            <!-- Căn giữa form -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <Entry x:Name="UsernameEntry"
-               Placeholder="Tài khoản"
-               Keyboard="Text" />
+            <!-- FORM LOGIN -->
+            <Frame
+                Grid.Row="1"
+                Padding="24"
+                CornerRadius="24"
+                HasShadow="True"
+                BackgroundColor="White"
+                HorizontalOptions="Center"
+                WidthRequest="600">
 
-        <Entry x:Name="PasswordEntry"
-               Placeholder="Mật khẩu"
-               IsPassword="True" />
+                <VerticalStackLayout Spacing="18">
 
-        <Button Text="Đăng nhập"
-                Clicked="OnLoginClicked" />
+                    <!-- Tiêu đề đẹp hơn -->
+                    <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="🛒" FontSize="32" />
+                        <Label
+                            Text="Quản lý cửa hàng tạp hóa"
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
 
-        <Label Text="Tài khoản mặc định: admin / 123456"
-               FontSize="12"
-               TextColor="Gray"
-               HorizontalOptions="Center" />
-    </VerticalStackLayout>
+                    <Label
+                        Text="Đăng nhập để tiếp tục"
+                        FontSize="13"
+                        HorizontalOptions="Center"
+                        TextColor="Gray" />
+
+                    <!-- Username -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Tài khoản" FontSize="13" TextColor="#555" />
+                        <Entry
+                            x:Name="UsernameEntry"
+                            Placeholder="Nhập tài khoản..." />
+                    </VerticalStackLayout>
+
+                    <!-- Password -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Mật khẩu" FontSize="13" TextColor="#555" />
+                        <Entry
+                            x:Name="PasswordEntry"
+                            Placeholder="Nhập mật khẩu..."
+                            IsPassword="True" />
+                    </VerticalStackLayout>
+
+                    <!-- Login button -->
+                    <Button
+                        Text="Đăng nhập"
+                        HeightRequest="44"
+                        CornerRadius="22"
+                        FontAttributes="Bold"
+                        Clicked="OnLoginClicked"
+                        BackgroundColor="#1976D2"
+                        TextColor="White" />
+
+                    <Label
+                        Text="Tài khoản mặc định: admin / 123456"
+                        FontSize="12"
+                        HorizontalTextAlignment="Center"
+                        TextColor="Gray"
+                        Margin="0,8,0,0" />
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+        </Grid>
+    </ScrollView>
+
 </ContentPage>

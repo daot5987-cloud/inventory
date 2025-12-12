@@ -14,11 +14,6 @@
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="12">
 
-            <!-- TIÊU ĐỀ -->
-            <Label Text="Bán hàng"
-                   FontSize="28"
-                   FontAttributes="Bold" />
-
             <!-- KHỐI TÌM KIẾM & KẾT QUẢ -->
             <Frame Padding="12"
                    HasShadow="True"

@@ -53,4 +53,10 @@
             ContentTemplate="{DataTemplate pages:CashFlowPage}" />
     </FlyoutItem>
 
+    <MenuItem 
+    Text="Đăng xuất"
+    Clicked="OnLogoutClicked"
+    IconImageSource="logout.png"
+    />
+
 </Shell>

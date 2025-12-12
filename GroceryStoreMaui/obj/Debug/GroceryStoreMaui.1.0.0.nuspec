@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>GroceryStoreMaui</id>
+    <version>1.0.0</version>
+    <authors>GroceryStoreMaui</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="5d7880ae1664bd5aa81f78bc409b087e08dcfa62" />
+    <dependencies>
+      <group targetFramework="net9.0-windows10.0.19041">
+        <dependency id="CommunityToolkit.Mvvm" version="8.4.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls" version="9.0.111" exclude="Build,Analyzers" />
+        <dependency id="sqlite-net-pcl" version="1.9.172" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\hello word\GroceryStoreMaui\GroceryStoreMaui\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\GroceryStoreMaui.runtimeconfig.json" target="lib\net9.0-windows10.0.19041\GroceryStoreMaui.runtimeconfig.json" />
+    <file src="D:\hello word\GroceryStoreMaui\GroceryStoreMaui\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\GroceryStoreMaui.dll" target="lib\net9.0-windows10.0.19041\GroceryStoreMaui.dll" />
+    <file src="D:\hello word\GroceryStoreMaui\GroceryStoreMaui\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\resources.pri" target="lib\net9.0-windows10.0.19041\resources.pri" />
+  </files>
+</package>

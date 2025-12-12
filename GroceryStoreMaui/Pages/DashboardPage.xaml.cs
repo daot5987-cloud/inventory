@@ -1,3 +1,4 @@
+﻿using System.Linq;                     // 👈 nhớ import
 using GroceryStoreMaui.Services;
 using GroceryStoreMaui.Models;
 
@@ -19,14 +20,28 @@ public partial class DashboardPage : ContentPage
     {
         base.OnAppearing();
 
-        var conn = _db.Connection;
+        try
+        {
+            var conn = _db.Connection;
 
-        var products = await _productService.GetProductsAsync();
-        var customers = await conn.Table<Customer>().ToListAsync();
-        var lowStock = products.Where(p => p.Status != ProductStatus.InStock).ToList();
+            // Lấy danh sách
+            var products = await _productService.GetProductsAsync();
+            var customers = await conn.Table<Customer>().ToListAsync();
 
-        TotalProductLabel.Text = products.Count.ToString();
-        TotalCustomerLabel.Text = customers.Count.ToString();
-        LowStockCollection.ItemsSource = lowStock;
+            // Hàng sắp hết / hết
+            var lowStock = products
+                .Where(p => p.Status != ProductStatus.InStock)
+                .ToList();
+
+            // 👇 ĐÚNG THEO TÊN TRONG XAML
+            ProductCountLabel.Text = products.Count.ToString();
+            CustomerCountLabel.Text = customers.Count.ToString();
+
+            LowStockCollection.ItemsSource = lowStock;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Lỗi", "Không tải được dữ liệu tổng quan.\n" + ex.Message, "OK");
+        }
     }
 }

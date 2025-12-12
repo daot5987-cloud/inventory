@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using GroceryStoreMaui.Models;
 using GroceryStoreMaui.Services;
 
@@ -12,12 +15,46 @@ public partial class SalesPage : ContentPage
     private readonly SalesService _salesService;
     private readonly AuthService _authService;
 
-    // Class đại diện cho 1 dòng trong giỏ hàng
-    public class CartItem
+    // Class đại diện 1 dòng trong giỏ hàng – có INotifyPropertyChanged
+    public class CartItem : INotifyPropertyChanged
     {
-        public Product Product { get; set; } = null!;
-        public int Quantity { get; set; }
+        private Product _product = null!;
+        private int _quantity;
+
+        public Product Product
+        {
+            get => _product;
+            set
+            {
+                if (_product != value)
+                {
+                    _product = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(LineTotal));
+                }
+            }
+        }
+
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                if (_quantity != value)
+                {
+                    _quantity = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(LineTotal));
+                }
+            }
+        }
+
         public decimal LineTotal => Product.SalePrice * Quantity;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string? name = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
     private readonly ObservableCollection<CartItem> _cart = new();
@@ -33,37 +70,33 @@ public partial class SalesPage : ContentPage
         CartCollection.ItemsSource = _cart;
     }
 
-    // 🔎 Tìm sản phẩm khi bấm nút search trên bàn phím
+    // Tìm sản phẩm (khi bấm search)
     private async void OnSearchProduct(object sender, EventArgs e)
     {
         var keyword = ProductSearchBar.Text;
-
         if (string.IsNullOrWhiteSpace(keyword))
         {
             SearchResultCollection.ItemsSource = null;
             return;
         }
 
-        var results = await _productService.GetProductsAsync(keyword);
-        SearchResultCollection.ItemsSource = results;
+        SearchResultCollection.ItemsSource = await _productService.GetProductsAsync(keyword);
     }
 
-    // 🔎 Tìm sản phẩm khi gõ chữ (TextChanged trong XAML)
+    // Tìm khi gõ
     private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
         var keyword = e.NewTextValue;
-
         if (string.IsNullOrWhiteSpace(keyword))
         {
             SearchResultCollection.ItemsSource = null;
             return;
         }
 
-        var results = await _productService.GetProductsAsync(keyword);
-        SearchResultCollection.ItemsSource = results;
+        SearchResultCollection.ItemsSource = await _productService.GetProductsAsync(keyword);
     }
 
-    // Khi chọn 1 sản phẩm từ danh sách kết quả
+    // Chọn SP từ list kết quả -> thêm vào giỏ
     private void OnProductSelected(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.FirstOrDefault() is Product p)
@@ -72,11 +105,6 @@ public partial class SalesPage : ContentPage
             if (exist != null)
             {
                 exist.Quantity += 1;
-
-                // cập nhật lại item để UI refresh
-                var idx = _cart.IndexOf(exist);
-                _cart.RemoveAt(idx);
-                _cart.Insert(idx, exist);
             }
             else
             {
@@ -95,10 +123,9 @@ public partial class SalesPage : ContentPage
     // Tăng số lượng
     private void OnIncreaseQuantityClicked(object sender, EventArgs e)
     {
-        if ((sender as Button)?.CommandParameter is CartItem item)
+        if (sender is Button btn && btn.BindingContext is CartItem item)
         {
             item.Quantity += 1;
-            RefreshCartItem(item);
             UpdateTotal();
         }
     }
@@ -106,17 +133,14 @@ public partial class SalesPage : ContentPage
     // Giảm số lượng
     private void OnDecreaseQuantityClicked(object sender, EventArgs e)
     {
-        if ((sender as Button)?.CommandParameter is CartItem item)
+        if (sender is Button btn && btn.BindingContext is CartItem item)
         {
             item.Quantity -= 1;
             if (item.Quantity <= 0)
             {
                 _cart.Remove(item);
             }
-            else
-            {
-                RefreshCartItem(item);
-            }
+
             UpdateTotal();
         }
     }
@@ -124,7 +148,7 @@ public partial class SalesPage : ContentPage
     // Xóa 1 dòng khỏi giỏ
     private void OnRemoveItemClicked(object sender, EventArgs e)
     {
-        if ((sender as Button)?.CommandParameter is CartItem item)
+        if (sender is Button btn && btn.BindingContext is CartItem item)
         {
             _cart.Remove(item);
             UpdateTotal();
@@ -137,16 +161,21 @@ public partial class SalesPage : ContentPage
         if (_cart.Count == 0)
             return;
 
-        bool confirm = await DisplayAlert(
-            "Xóa giỏ hàng",
-            "Bạn có chắc muốn xóa toàn bộ giỏ hàng?",
-            "Xóa", "Hủy");
+        bool confirm = await DisplayAlert("Xóa giỏ hàng",
+            "Bạn có chắc muốn xóa toàn bộ giỏ hàng?", "Xóa", "Hủy");
 
         if (confirm)
         {
             _cart.Clear();
+            DiscountEntry.Text = "0";
             UpdateTotal();
         }
+    }
+
+    // Khi sửa ô giảm giá
+    private void DiscountEntry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        UpdateTotal();
     }
 
     // Cập nhật tổng tiền
@@ -158,22 +187,6 @@ public partial class SalesPage : ContentPage
         if (total < 0) total = 0;
 
         TotalLabel.Text = $"{total:N0} đ";
-    }
-
-    private void DiscountEntry_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        UpdateTotal();
-    }
-
-    // Làm “động” lại 1 item trong ObservableCollection để UI nhận thay đổi
-    private void RefreshCartItem(CartItem item)
-    {
-        var idx = _cart.IndexOf(item);
-        if (idx >= 0)
-        {
-            _cart.RemoveAt(idx);
-            _cart.Insert(idx, item);
-        }
     }
 
     // Thanh toán
@@ -193,11 +206,10 @@ public partial class SalesPage : ContentPage
         var sale = await _salesService.CreateSaleAsync(
             list,
             discount,
-            PaymentMethod.Cash,   // mặc định tiền mặt
+            PaymentMethod.Cash,
             seller);
 
-        await DisplayAlert(
-            "Thành công",
+        await DisplayAlert("Thành công",
             $"Đã tạo hóa đơn #{sale.Id}\nTổng tiền: {sale.TotalAmount:N0} đ",
             "OK");
 
